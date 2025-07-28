@@ -175,14 +175,8 @@ The GraphQL API will serve as the primary interface for clients to interact with
 Schema ownership is a critical aspect of managing a GraphQL API, especially as the system evolves and multiple teams contribute. A clear strategy ensures consistency, prevents conflicts, and facilitates collaboration.
 
 *   **Federated Schema (Recommended for Microservices Architecture)**: If the backend evolves into a microservices architecture, a federated GraphQL schema approach (e.g., using Apollo Federation) is highly recommended. In this model:
-    *   **Domain-Driven Ownership**: Each backend service (e.g., Asset Service, Climate Data Service, Client Management Service) owns and maintains its specific part of the GraphQL schema (a 
-
-
-subgraph schema). This promotes autonomy and reduces inter-team dependencies.
-    *   **Gateway/Supergraph**: A central GraphQL gateway combines these subgraph schemas into a single, unified 
-
-
-supergraph that clients can query. The gateway handles query planning and execution across the different subgraphs.
+    *   **Domain-Driven Ownership**: Each backend service (e.g., Asset Service, Climate Data Service, Client Management Service) owns and maintains its specific part of the GraphQL schema (a subgraph schema). This promotes autonomy and reduces inter-team dependencies.
+    *   **Gateway/Supergraph**: A central GraphQL gateway combines these subgraph schemas into a single, unified supergraph that clients can query. The gateway handles query planning and execution across the different subgraphs.
     *   **Benefits**: This approach scales well with organizational growth, allows teams to deploy independently, and maintains a single, coherent API for consumers.
 
 *   **Monolithic Schema (Initial Phase)**: In the initial phase, with a single GraphQL server, a monolithic schema is acceptable. However, even then, clear ownership within the development team is crucial:
@@ -299,10 +293,7 @@ A robust deployment strategy ensures that new features and bug fixes are deliver
     *   **Feature Flags (Feature Toggles)**: This technique allows features to be deployed to production but remain hidden until explicitly enabled. This decouples deployment from release.
         *   **Benefits**: Enables A/B testing, canary releases, dark launches, and easy rollback of problematic features without redeploying code.
         *   **Implementation**: Using a feature flag management system (e.g., LaunchDarkly, Split.io, or an in-house solution) that allows dynamic enabling/disabling of features for specific users or groups.
-    *   **Canary Releases**: A new version of a service is deployed to a small subset of users (the 
-
-
-canary group) before a full rollout. This allows for real-world testing and monitoring of the new version's performance and stability.
+    *   **Canary Releases**: A new version of a service is deployed to a small subset of users (the canary group) before a full rollout. This allows for real-world testing and monitoring of the new version's performance and stability.
     *   **Blue/Green Deployments**: Two identical production environments (Blue and Green) are maintained. One (Blue) is active, serving all traffic. The new version is deployed to the inactive (Green) environment, tested, and then traffic is switched to Green. This provides instant rollback capability by switching traffic back to Blue if issues arise.
     *   **Rolling Updates**: New versions are gradually rolled out by updating a subset of instances at a time, ensuring continuous availability during deployment. Kubernetes natively supports rolling updates.
 
