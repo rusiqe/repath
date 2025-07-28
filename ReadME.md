@@ -15,7 +15,8 @@ To meet the requirements of supporting 100M+ climate records per client per scen
 
 ## Detailed Architectural Explanation
 
-<img width="1659" height="707" alt="image" src="https://github.com/user-attachments/assets/14851219-c8b6-415a-929f-731680030ca2" />
+<img width="1659" height="707" alt="image of the process and architecture idea " src="https://github.com/user-attachments/assets/14851219-c8b6-415a-929f-731680030ca2" />
+image of the process, tools, and outline of tools around the proposed architecture
 
 
 ### Data Ingestion Layer
@@ -316,10 +317,7 @@ Yes, I am familiar with Hasura, GraphQL Yoga, and Prisma. Each of these tools ad
     *   **Cons**: Can lead to a tight coupling with the database schema, less control over custom business logic within the GraphQL layer (though remote schemas help), potential vendor lock-in if heavily reliant on Hasura-specific features, might not be suitable for highly complex, custom data transformations that are not easily expressed as database queries.
     *   **Opinion**: Hasura is an excellent choice for projects where the primary goal is to expose existing database data quickly and efficiently via GraphQL, especially for internal APIs or applications that closely mirror the database structure. For Repath, it could be very useful for quickly exposing the `Clients` and `Assets` data from PostgreSQL, and potentially even some aggregated `Climate_Data` if the queries are straightforward. However, for complex time-series analytics and transformations, a custom GraphQL resolver might still be necessary.
 
-*   **GraphQL Yoga**: GraphQL Yoga is a 
-
-
-fully-featured GraphQL server library for Node.js, built on top of `graphql-js`. It provides a simple and extensible way to build GraphQL APIs.
+*   **GraphQL Yoga**: GraphQL Yoga is a fully-featured GraphQL server library for Node.js, built on top of `graphql-js`. It provides a simple and extensible way to build GraphQL APIs.
     *   **Pros**: Highly flexible and customizable, allows full control over resolvers and data fetching logic, good for building complex APIs with custom business logic, strong community support, integrates well with various data sources and authentication mechanisms.
     *   **Cons**: Requires more boilerplate code compared to Hasura, developers need to write resolvers manually, no out-of-the-box real-time capabilities (though can be added with subscriptions).
     *   **Opinion**: GraphQL Yoga (or Apollo Server, which is similar) is a solid choice for building the core GraphQL API layer for Repath. It provides the necessary flexibility to implement complex data fetching logic, integrate with the Time-Series Database, and orchestrate calls to the distributed computing layer for analytics. It aligns well with the existing Node.js GraphQL layer mentioned in the case study.
